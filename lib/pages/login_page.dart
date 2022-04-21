@@ -26,13 +26,12 @@ class _LoginPageState extends State<LoginPage> {
     String userId = _userId.value.text;
     String password = _password.value.text;
     var user = UserModel(userId: int.parse(userId),mobile: '', password: password);
-    print(user);
 
     signIn(user).then((res) {
       Map<String, dynamic> map = jsonDecode(res.body);
 
       print(map['status']);
-      if (map['status'] == 'Success') {
+      if (map['status'] == 'success') {
         Fluttertoast.showToast(
             msg: "Login Sucsess",
             toastLength: Toast.LENGTH_LONG,
@@ -124,9 +123,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  login();
-                  print(_userId.value.text);
-                },
+                  login();                },
                 child: Text("Login")),
             Padding(
               padding: const EdgeInsets.only(

@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -31,32 +32,41 @@ class _ResetPasswordState extends State<ResetPassword> {
         userId: int.parse(userId), mobile: mobile, password: password);
 
 
-    reset() async {
+    reset(UserModel user) async {
       String userId = _userId.value.text;
       String mobile = _mobile.value.text;
       String password = _password.value.text;
 
       var user = UserModel(
           userId: int.parse(userId), mobile: mobile, password: password);
-      print(user);
-      signUp(user).then((res) {
-        print(res.body);
-      });
 
-      try {} catch (e) {
-        log(e.toString());
-        Fluttertoast.showToast(
-            msg: "$e",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      }
+      reset(user).then((res) {
+        Map<String, dynamic> map = jsonDecode(res.body);
+        print(map['status']);
+        if (map['status'] == 'success') {
+          Fluttertoast.showToast(
+              msg: "Login Sucsess",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 3,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        } else {
+          Fluttertoast.showToast(
+              msg: "Login Failed",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 3,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        }
+      });
     }
   }
-  @override
+
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

@@ -34,24 +34,29 @@ class _RegistrationPageState extends State<RegistrationPage> {
         userId: int.parse(userId), mobile: mobile, password: password);
 print(user);
     signUp(user).then((res) {
-      print(res.body);
-    });
+      Map<String, dynamic> map = jsonDecode(res.body);
 
-    try {} catch (e) {
-      log(e.toString());
+    if (map['status'] == '200') {
       Fluttertoast.showToast(
-          msg: "$e",
+          msg: "data save Sucsess",
           toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      Fluttertoast.showToast(
+          msg: "data save failed Failed",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
     }
+    });
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +154,7 @@ print(user);
                     save();
                     print(_userId.value.text);
                   },
-                  child: Text("Login")),
+                  child: Text("signup")),
             ],
           ),
         ),
