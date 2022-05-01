@@ -1,7 +1,4 @@
-
-
 import 'dart:convert';
-
 
 import 'package:flutter_app/model/userModel.dart';
 import 'package:http/http.dart' as http;
@@ -19,16 +16,11 @@ Future<http.Response> signUp(UserModel user) async {
   return response;
 }
 
-
 Future<http.Response> signIn(UserModel user) async {
   final response = await http.post(Uri.parse(userLoginApi),
       headers: requestHeaders, body: jsonEncode(user.toMap()));
   return response;
 }
-
-
-
-
 
 Future<http.Response> reset(UserModel user) async {
   final response = await http.post(Uri.parse(resetPasswordApi),
@@ -36,11 +28,8 @@ Future<http.Response> reset(UserModel user) async {
   return response;
 }
 
-
-
-
 Future<http.Response> updatePass() async {
-  final response =  await http.put(Uri.parse(updatePasswordApi), headers: requestHeaders);
+  final response =
+      await http.put(Uri.parse(updatePasswordApi), headers: requestHeaders);
   return response;
 }
-

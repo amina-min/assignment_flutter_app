@@ -25,17 +25,16 @@ class _LoginPageState extends State<LoginPage> {
   login() async {
     String userId = _userId.value.text;
     String password = _password.value.text;
-    var user = UserModel(userId: int.parse(userId),mobile: '', password: password);
+    var user =
+        UserModel(userId: int.parse(userId), mobile: '', password: password);
 
     signIn(user).then((res) {
       Map<String, dynamic> map = jsonDecode(res.body);
-
-      print(map['status']);
       if (map['status'] == 'success') {
         Fluttertoast.showToast(
             msg: "Login Sucsess",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
+            gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 3,
             backgroundColor: Colors.green,
             textColor: Colors.white,
@@ -44,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
         Fluttertoast.showToast(
             msg: "Login Failed",
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
+            gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 3,
             backgroundColor: Colors.red,
             textColor: Colors.white,
@@ -52,7 +51,6 @@ class _LoginPageState extends State<LoginPage> {
       }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -116,14 +114,15 @@ class _LoginPageState extends State<LoginPage> {
             FlatButton(
               onPressed: () {
                 Navigator.of(context).push(
-                     MaterialPageRoute(builder: (context) => ResetPassword()));
+                    MaterialPageRoute(builder: (context) => ResetPassword()));
               },
               textColor: Colors.blue,
               child: Text('Forgot Password'),
             ),
             ElevatedButton(
                 onPressed: () {
-                  login();                },
+                  login();
+                },
                 child: Text("Login")),
             Padding(
               padding: const EdgeInsets.only(

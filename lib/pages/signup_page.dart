@@ -19,8 +19,6 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-
-
   final _userId = TextEditingController();
   final _mobile = TextEditingController();
   final _password = TextEditingController();
@@ -32,29 +30,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
     var user = UserModel(
         userId: int.parse(userId), mobile: mobile, password: password);
-print(user);
     signUp(user).then((res) {
       Map<String, dynamic> map = jsonDecode(res.body);
-
-    if (map['status'] == '200') {
-      Fluttertoast.showToast(
-          msg: "data save Sucsess",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    } else {
-      Fluttertoast.showToast(
-          msg: "data save failed Failed",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
+      if (map['status'] == 200) {
+        Fluttertoast.showToast(
+            msg: "data save Sucsess",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: "data save failed",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
     });
   }
 
@@ -134,7 +130,6 @@ print(user);
                     }
                     return null;
                   },
-
                   controller: _password,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -152,7 +147,6 @@ print(user);
               ElevatedButton(
                   onPressed: () {
                     save();
-                    print(_userId.value.text);
                   },
                   child: Text("signup")),
             ],

@@ -1,8 +1,7 @@
-class UserModel{
+class UserModel {
   late int userId;
   late String mobile;
   late String password;
-
 
   UserModel({
     required this.userId,
@@ -33,13 +32,11 @@ class UserModel{
 
   String toJson() {
     return '{' +
-
         ' "userId": "$userId",' +
         ' "mobile": "$mobile",' +
         ' "password": "$password" ' +
         '}';
   }
-
 
   UserModel copyWith({
     int? userId,

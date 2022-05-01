@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:developer';
 
@@ -18,7 +17,6 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-
   final _userId = TextEditingController();
   final _mobile = TextEditingController();
   final _password = TextEditingController();
@@ -31,7 +29,6 @@ class _ResetPasswordState extends State<ResetPassword> {
     var model = UserModel(
         userId: int.parse(userId), mobile: mobile, password: password);
 
-
     reset(UserModel user) async {
       String userId = _userId.value.text;
       String mobile = _mobile.value.text;
@@ -42,10 +39,9 @@ class _ResetPasswordState extends State<ResetPassword> {
 
       reset(user).then((res) {
         Map<String, dynamic> map = jsonDecode(res.body);
-        print(map['status']);
-        if (map['status'] == 'success') {
+        if (map['status'] == 200) {
           Fluttertoast.showToast(
-              msg: "Login Sucsess",
+              msg: "Password updated",
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 3,
@@ -54,7 +50,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               fontSize: 16.0);
         } else {
           Fluttertoast.showToast(
-              msg: "Login Failed",
+              msg: "password updated Failed",
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 3,
@@ -66,7 +62,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     }
   }
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -80,7 +76,6 @@ class _ResetPasswordState extends State<ResetPassword> {
         ),
         backgroundColor: Colors.indigo,
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
@@ -89,11 +84,9 @@ class _ResetPasswordState extends State<ResetPassword> {
               const Padding(
                 padding: EdgeInsets.only(bottom: 15, top: 15),
                 child: Text(
-                  "Enter your userid and mobile no. and reset your password",textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 24,
-
-                      color: Colors.blue),
+                  "Enter your userid and mobile no. and reset your password",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 24, color: Colors.blue),
                 ),
               ),
               Padding(
@@ -160,9 +153,8 @@ class _ResetPasswordState extends State<ResetPassword> {
               ElevatedButton(
                   onPressed: () {
                     reset();
-                    print(_userId.value.text);
                   },
-                  child: Text("Login")),
+                  child: Text("Reset")),
             ],
           ),
         ),
