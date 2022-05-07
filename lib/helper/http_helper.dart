@@ -22,14 +22,13 @@ Future<http.Response> signIn(UserModel user) async {
   return response;
 }
 
-Future<http.Response> reset(UserModel user) async {
+Future<http.Response> resetapi(UserModel user) async {
   final response = await http.post(Uri.parse(resetPasswordApi),
       headers: requestHeaders, body: jsonEncode(user.toMap()));
   return response;
 }
 
 Future<http.Response> updatePass() async {
-  final response =
-      await http.put(Uri.parse(updatePasswordApi), headers: requestHeaders);
+  final response = await http.put(Uri.parse(updatePasswordApi), headers: requestHeaders);
   return response;
 }

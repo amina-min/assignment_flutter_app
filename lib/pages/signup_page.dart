@@ -22,6 +22,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _userId = TextEditingController();
   final _mobile = TextEditingController();
   final _password = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
 
   save() async {
     String userId = _userId.value.text;
@@ -68,88 +70,96 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
         backgroundColor: Colors.indigo,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 3, top: 15),
-                child: Text(
-                  "Signup Here",
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue),
-                ),
+      body: SingleChildScrollView(
+        child: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 3, top: 15),
+                    child: Text(
+                      "Signup Here",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 60.0, right: 60),
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter User ID';
+                        }
+                        return null;
+                      },
+                      controller: _userId,
+                      decoration: InputDecoration(
+                          suffixIcon: Icon(
+                            Icons.mark_email_read,
+                            size: 20.0,
+                          ),
+                          border: UnderlineInputBorder(),
+                          labelText: "Enter your User Id"),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 60.0, right: 60),
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Mobile Number';
+                        }
+                        return null;
+                      },
+                      controller: _mobile,
+                      decoration: InputDecoration(
+                          suffixIcon: Icon(
+                            Icons.phone,
+                            size: 20.0,
+                          ),
+                          border: UnderlineInputBorder(),
+                          labelText: "Enter phone no."),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 60.0, right: 60),
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please input your new Password';
+                        }
+                        return null;
+                      },
+                      controller: _password,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          suffixIcon: Icon(
+                            Icons.password_outlined,
+                            size: 20.0,
+                          ),
+                          border: UnderlineInputBorder(),
+                          labelText: "Enter your Password"),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          save();
+                        }
+                      },
+                      child: Text("signup")),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 60.0, right: 60),
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter User ID';
-                    }
-                    return null;
-                  },
-                  controller: _userId,
-                  decoration: InputDecoration(
-                      suffixIcon: Icon(
-                        Icons.mark_email_read,
-                        size: 20.0,
-                      ),
-                      border: UnderlineInputBorder(),
-                      labelText: "Enter your User Id"),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 60.0, right: 60),
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Mobile Number';
-                    }
-                    return null;
-                  },
-                  controller: _mobile,
-                  decoration: InputDecoration(
-                      suffixIcon: Icon(
-                        Icons.phone,
-                        size: 20.0,
-                      ),
-                      border: UnderlineInputBorder(),
-                      labelText: "Enter phone no."),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 60.0, right: 60),
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please input your new Password';
-                    }
-                    return null;
-                  },
-                  controller: _password,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      suffixIcon: Icon(
-                        Icons.password_outlined,
-                        size: 20.0,
-                      ),
-                      border: UnderlineInputBorder(),
-                      labelText: "Enter your Password"),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    save();
-                  },
-                  child: Text("signup")),
-            ],
+            ),
           ),
         ),
       ),
